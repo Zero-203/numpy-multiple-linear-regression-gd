@@ -262,11 +262,36 @@ def weights_l2_distance(w_gd, w_closed):
     # TODO: Compute the L2 distance between two weight vectors
     return float(np.sqrt(np.sum((w_gd-w_closed)**2)))
 
-# Step 24 - create_lr_model (not yet solved)
-# TODO: implement
+# Step 24 - create_lr_model
+def create_lr_model(learning_rate=0.01, epochs=1000, patience=50, seed=0):
+    # TODO: Build the initial LinearRegressionGD-style model dictionary...
+    return {
+        'learning_rate':learning_rate,
+        'epochs':epochs,
+        'patience':patience,
+        'seed':seed,
+        'weights':None,
+        'normal_weights':None,
+        'mean':None,
+        'std':None,
+        'train_losses':[],
+        'val_losses':[]
+    }
 
-# Step 25 - fit_lr_model (not yet solved)
-# TODO: implement
+# Step 25 - fit_lr_model
+def fit_lr_model(model, X_train, y_train, X_val, y_val):
+    # TODO: Fit model with train stats, design matrices, GD, and normal eq
+    learning_rate, epochs, patience, seed = model['learning_rate'], model['epochs'], model['patience'], model['seed']
+
+    mean, std = compute_feature_stats(X_train)
+    X_train_design = prepare_design_matrix(X_train,mean,std)
+    X_val_design = prepare_design_matrix(X_val,mean,std)
+
+    weights,train_losses,val_losses = train_batch_gd(X_train_design,y_train,X_val_design,y_val,learning_rate,epochs,patience,seed=seed)
+    normal_weights = normal_equation(X_train_design,y_train)
+    
+    model["mean"],model["std"],model["weights"],model["normal_weights"],model["train_losses"],model["val_losses"]=mean,std,weights,normal_weights,train_losses,val_losses
+    return model
 
 # Step 26 - predict_lr_model (not yet solved)
 # TODO: implement
