@@ -175,8 +175,36 @@ def init_training_state(n_features, seed=None):
                     } 
     return metrics_dict
 
-# Step 16 - run_one_epoch (not yet solved)
-# TODO: implement
+# Step 16 - run_one_epoch
+def run_one_epoch(state, X_train, y_train, X_val, y_val, lr, patience):
+    """Perform one GD step, log losses, and refresh early-stopping on state.
+
+    Args:
+        state: Dict with keys weights, best_weights, best_val_loss, wait,
+            stopped, train_losses, val_losses.
+        X_train: Training design matrix of shape (n_tr, d_in).
+        y_train: Training targets of shape (n_tr,).
+        X_val: Validation design matrix of shape (n_va, d_in).
+        y_val: Validation targets of shape (n_va,).
+        lr: Learning rate (float).
+        patience: Early-stopping patience (int).
+
+    Returns:
+        Updated state dict.
+    """
+    # TODO: Take one GD step, log train/val losses, refresh early-stopping fields...
+    # GD step
+    weights = state["weights"]
+    gd_step(X_train,y_train,weights,lr)
+    # log train/val losses
+    train_loss, val_loss = epoch_train_val_losses(X_train,y_train,X_val,y_val,weights)
+    state["train_losses"].append(train_loss)
+    state["val_losses"].append(val_loss)
+    #  refresh early-stopping fields
+    best_val_loss, wait, best_weights, stop = update_early_stop_state(val_loss,state["best_val_loss"],state["wait"],weights,state["best_weights"],patience)
+    # update state
+    state["best_val_loss"],state["wait"],state["best_weights"],state["stopped"] = best_val_loss, wait, best_weights, stop
+    return state
 
 # Step 17 - train_batch_gd (not yet solved)
 # TODO: implement
