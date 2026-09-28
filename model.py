@@ -48,8 +48,11 @@ def compute_feature_stats(X):
     feature_std_fix = np.where(feature_std == 0.0,feature_ones,feature_std)
     return feature_mean,feature_std_fix
 
-# Step 4 - standardize_features (not yet solved)
-# TODO: implement
+# Step 4 - standardize_features
+def standardize_features(X, mean, std):
+    # TODO: Apply z-score normalization using precomputed training mean and std.
+    X_scaled = (X-mean)/std
+    return X_scaled
 
 # Step 5 - add_bias_column (not yet solved)
 # TODO: implement
