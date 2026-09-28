@@ -99,8 +99,11 @@ def normal_equation(X, y):
     # TODO: Solve for the closed-form least-squares weights via the normal equation.
     return np.linalg.solve(X.T @ X, X.T @ y)
 
-# Step 11 - initialize_weights (not yet solved)
-# TODO: implement
+# Step 11 - initialize_weights
+def initialize_weights(n_features, seed=None):
+    # TODO: Return (n_features,) weights sampled from N(0, 0.01)
+    np.random.seed(seed=seed)
+    return np.random.normal(0,0.01,n_features)
 
 # Step 12 - gd_step (not yet solved)
 # TODO: implement
