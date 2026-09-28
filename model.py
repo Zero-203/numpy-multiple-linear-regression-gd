@@ -97,7 +97,7 @@ def mse_gradient(X, y_true, y_pred):
 # Step 10 - normal_equation
 def normal_equation(X, y):
     # TODO: Solve for the closed-form least-squares weights via the normal equation.
-    return np.linalg.solve(X.T @ X, X.T @ y)
+    return np.linalg.pinv(X.T @ X) @ (X.T @ y)
 
 # Step 11 - initialize_weights
 def initialize_weights(n_features, seed=None):
