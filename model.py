@@ -235,8 +235,16 @@ def r_squared(y_true, y_pred):
     R = (1 - ss_res/ss_tot) if ss_tot != 0.0 else np.nan
     return R
 
-# Step 21 - evaluate_regression (not yet solved)
-# TODO: implement
+# Step 21 - evaluate_regression
+def evaluate_regression(y_true, y_pred):
+    # TODO: Bundle MAE, RMSE, and R^2 into one metrics dictionary for test-set reporting.
+    mae, rmse, r2 = mean_absolute_error(y_true, y_pred),\
+                    root_mean_squared_error(y_true, y_pred),\
+                    r_squared(y_true, y_pred)
+    return {"mae":mae,
+            "rmse":rmse,
+            "r2":r2
+            }
 
 # Step 22 - learning_curve_data (not yet solved)
 # TODO: implement
