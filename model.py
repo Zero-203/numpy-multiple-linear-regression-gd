@@ -39,8 +39,14 @@ def split_train_val_test(X, y, train_frac=0.6, val_frac=0.2):
     X_tr, y_tr, X_va, y_va, X_te, y_te = X[:n_train], y[:n_train], X[n_train:n_train+n_val], y[n_train:n_train+n_val], X[n_train+n_val:n_train+n_val+n_test], y[n_train+n_val:n_train+n_val+n_test]
     return X_tr,y_tr,X_va,y_va,X_te,y_te
 
-# Step 3 - compute_feature_stats (not yet solved)
-# TODO: implement
+# Step 3 - compute_feature_stats
+def compute_feature_stats(X):
+    # TODO: Compute per-feature mean and std; replace std of 0 with 1
+    feature_mean = np.mean(X,axis=0)
+    feature_std = np.std(X,axis=0)
+    feature_ones = np.ones_like(feature_std)
+    feature_std_fix = np.where(feature_std == 0.0,feature_ones,feature_std)
+    return feature_mean,feature_std_fix
 
 # Step 4 - standardize_features (not yet solved)
 # TODO: implement
